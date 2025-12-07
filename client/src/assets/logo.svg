@@ -1,0 +1,19 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 800">
+  <g fill="none" stroke="#000" stroke-width="20" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M600 150 
+             c0-35 25-65 60-65 
+             s60 30 60 65"></path>
+    <path d="M600 200 L600 245"></path>
+    <path d="M600 245 
+             L880 380 
+             a25 25 0 0 1 -25 45 
+             L600 315 
+             L345 425 
+             a25 25 0 0 1 -25-45 
+             L600 245"></path>
+  </g>
+  
+  <text x="600" y="620" font-family="Arial, sans-serif" font-weight="700" font-size="95" fill="#000" text-anchor="middle" letter-spacing="6">
+    TRENDCASA
+  </text>
+</svg>
