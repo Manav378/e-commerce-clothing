@@ -15,19 +15,19 @@ const Navbar = ({open , setopen}) => {
     <div className="relative top-0 left-0 h-[20vh] w-full flex items-center justify-between  bg-white z-50">
       
 
-     <div className=' w-full flex items-center justify-between'>
+  <div className={`flex items-center justify-between w-full transition-transform duration-500 ${
+  open ? "-translate-x-full opacity-0" : "translate-x-0 opacity-100"
+}`}>
        
 
     
       
-      <div className={`sm:w-[14vw] w-[30vw]  transition-all duration-700 ${
-  open ? "translate-x-[-200%]" : "translate-x-0"
-}`}>
-         <img
+      <div className={`sm:w-[14vw] w-[30vw]  `}>
+       <NavLink to={'/'}>  <img
           src={assets.logo}
           className={`w-full  `}
           alt="logo"
-        />
+        /></NavLink>
      
 
 
@@ -83,9 +83,7 @@ const Navbar = ({open , setopen}) => {
 
 
 
-      <div className={`flex items-center gap-5 transition-all duration-700 ${
-  open ? "translate-x-[-500%]" : "translate-x-0"
-}`}>
+      <div className={`flex items-center gap-5 `}>
 
           {/* search icon*/}
           <lord-icon

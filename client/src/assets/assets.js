@@ -1,3 +1,4 @@
+import React from 'react'
 
 
 import p_img1 from './p_img1.png'
@@ -64,13 +65,20 @@ import logo from '../assets/logo.svg'
 import search from '../assets/search.gif'
 import menu from '../assets/menu.svg'
 import main_temp  from '../assets/main_template.jpg'
-import React from 'react'
+import returnPolicy  from '../assets/returnPolicy.png'
+import exchange from '../assets/exchange.png'
+import support from '../assets/support.png'
+
+
 
 export const assets  = {
     logo,
     search,
     menu,
-    main_temp
+    main_temp,
+    returnPolicy,
+    exchange,
+    support
 }
 
 
