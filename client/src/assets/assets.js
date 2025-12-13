@@ -68,6 +68,7 @@ import main_temp  from '../assets/main_template.jpg'
 import returnPolicy  from '../assets/returnPolicy.png'
 import exchange from '../assets/exchange.png'
 import support from '../assets/support.png'
+import Dropdown from '../assets/dropdown.svg'
 
 
 
@@ -78,7 +79,8 @@ export const assets  = {
     main_temp,
     returnPolicy,
     exchange,
-    support
+    support,
+    Dropdown
 }
 
 

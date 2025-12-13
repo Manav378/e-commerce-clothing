@@ -1,11 +1,11 @@
 import React from 'react'
 import { assets } from '../assets/assets'
 
-const Hero = ({ open }) => {
+const Hero = () => {
   return (
     <div 
-      className={`relative w-full transition-all duration-700
-      md:h-[480px] ${open ? 'translate-x-[-500%]' : 'translate-x-0'}`}
+      className={`relative w-full 
+      md:h-[480px] `}
     >
 
       {/* Grid Layout */}

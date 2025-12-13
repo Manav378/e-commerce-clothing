@@ -6,10 +6,10 @@ const Titel = ({text1 , text2}) => {
       <div className="flex items-center justify-center gap-3 py-2">
   <span className="h-px w-16 bg-gray-400"></span>
 
-  <p className="text-2xl tracking-widest text-gray-600">
+  <p className="text-xl text-center  md:text-2xl lg:text-3xltracking-widest text-gray-600">
     {text1} 
   </p>
-  <p className="text-2xl tracking-widest text-black">
+  <p className="text-xl text-center  md:text-2xl lg:text-3xl tracking-widest text-black">
     {text2}
   </p>
 

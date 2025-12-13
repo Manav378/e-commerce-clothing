@@ -13,7 +13,7 @@ import Login from './Pages/Login.jsx'
 import PlaceOrder from './Pages/PlaceOrder.jsx'
 import Orders from './Pages/Orders.jsx'
 import Navbar from './Components/Navbar.jsx'
-import Hero from './Components/Hero.jsx'
+import Footer from './Components/footer.jsx'
 import React from 'react'
 function App() {
   
@@ -26,7 +26,7 @@ function App() {
     
       <Routes>
         <Route path='/' element={<Home open={open} setopen = {setopen}/>} />
-        <Route path='/Collection' element={<Collection/>} />
+        <Route path='/Collection' element={<Collection open={open}/>} />
         <Route path='/About' element={<About/>} />
         <Route path='/Contact' element={<Contact/>} />
         <Route path='/Product/:ProductId' element={<Product/>} />
@@ -35,6 +35,8 @@ function App() {
         <Route path='/Place-order' element={<PlaceOrder/>} />
         <Route path='/Orders' element={<Orders/>} />
       </Routes>
+      <Footer open={open}/>
+
      </div>
     </>
   )

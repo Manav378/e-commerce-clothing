@@ -4,7 +4,7 @@ import Titel from './Titel'
 import ProductItem from './ProductItem'
 import { useState,useEffect } from 'react'
 
-const LatestCollection = ({open }) => {
+const LatestCollection = () => {
 
     const {products} = useContext(ShopContext)
     const [latestProduct, setlatestProduct] = useState([]);
@@ -12,7 +12,7 @@ const LatestCollection = ({open }) => {
       setlatestProduct(products.slice(0,10));
     }, []);
   return (
-    <div className={`  transition-all duration-750  ${open ? "translate-x-[-200%]" : "translate-x-0" }`} >
+    <div className={``} >
         <div className='text-center py-2 px-3 '>
             <Titel text1={"LATEST"} text2={'COLLECTIONS'}/>
             <p className='w-3/4 text-xs sm:text-sm m-auto md:text-base text-gray-700 cormorant'>Lorem ipsum dolor, sit amet consectetur adipisicing elit. Labore, exercitationem?</p>

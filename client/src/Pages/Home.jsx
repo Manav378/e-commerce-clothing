@@ -2,13 +2,18 @@ import React from 'react'
 import Hero from '../Components/Hero.jsx'
 import LatestCollection from '../Components/LatestCollection.jsx'
 import Bestseller from '../Components/Bestseller.jsx'
+import OurPlolicy from '../Components/ourPlolicy.jsx'
+import Newsletterbox from '../Components/Newsletterbox.jsx'
 
-const Home = ({open,setopen}) => {
+const Home = () => {
   return (
     <div>
-        <Hero open={open} setopen = {setopen}/>
-        <LatestCollection open={open} setopen = {setopen}/>
-        <Bestseller open={open} setopen = {setopen}/>
+        <Hero />
+        <LatestCollection />
+        <Bestseller />
+        <OurPlolicy />
+        <Newsletterbox />
+      
     </div>
   )
 }
