@@ -1,10 +1,24 @@
 import React, { useContext } from "react";
 import { assets } from "../assets/assets";
-import { Link, NavLink } from "react-router-dom";
+import { Link, NavLink, useNavigate } from "react-router-dom";
 import { ShopContext } from "../Context/ShopContext.jsx";
+import axios from "axios";
+import { toast } from "react-toastify";
 
 const Navbar = ({ open, setopen }) => {
-  const { getCartCount , setshowsearch} = useContext(ShopContext)
+  const { getCartCount , setshowsearch,backendUrl,setisLoggedin} = useContext(ShopContext)
+  const navigate = useNavigate()
+  const logout = async()=>{
+        try {
+          axios.defaults.withCredentials = true
+          const {data} = await axios.get(`${backendUrl}/api/auth/logout`)
+          data.success && setisLoggedin(false)
+          toast.success("Logged out successfully");
+          navigate('/Signup')
+        } catch (error) {
+          toast.error(error.message)
+        }
+  }
   return (
     <>
       {/* ===== NAVBAR (STATIC – NO TRANSLATE) ===== */}
@@ -62,7 +76,7 @@ const Navbar = ({ open, setopen }) => {
     <div className="flex flex-col bg-white shadow-lg rounded-xl w-40 overflow-hidden">
 
       <NavLink
-        to="/profile"
+        to="/signup"
         className="cormorant px-4 py-2 text-gray-600 hover:bg-gray-100 hover:text-black"
       >
         My Profile
@@ -76,8 +90,8 @@ const Navbar = ({ open, setopen }) => {
       </NavLink>
 
       <button
-        onClick={() => console.log("logout")}
-        className="cormorant text-left px-4 py-2 text-gray-600 hover:bg-gray-100 hover:text-black"
+        onClick={logout}
+        className="cormorant text-left cursor-pointer px-4 py-2 text-gray-600 hover:bg-gray-100 hover:text-black"
       >
         Logout
       </button>

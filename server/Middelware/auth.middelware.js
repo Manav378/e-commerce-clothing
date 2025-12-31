@@ -1,26 +1,32 @@
-import jwt from "jsonwebtoken"
+import jwt from 'jsonwebtoken'
 
 
-const authMiddelware = async(req,res,next)=>{
-    const {token} = req.cookies;
 
-    if(!token) return res.status(404).json({message:"Missing token" , sucess:false});
-        try {
-             const tokenDecoded = jwt.verify(token , process.env.JSON_TOKEN);
+const authMiddelware = (req, res, next) => {
+  try {
+    const { token } = req.cookies;
 
-    if(tokenDecoded.id){
-        req.body.userId = tokenDecoded.id;
-    }else{
-        return res.status(404).json({
-            message:"User is not Authorized login again!",
-            success:false
-        })
+    if (!token) {
+      return res.status(401).json({
+        message: "Missing token",
+        success: false,
+      });
     }
-        } catch (error) {
-            res.status(401).json(message.error);
-        }
-        next();
-   
-}
 
-export default authMiddelware;
+    const decoded = jwt.verify(token, process.env.JSON_TOKEN);
+
+    // ✅ ENSURE body exists
+    if (!req.body) req.body = {};
+
+    req.body.userId = decoded.id;
+
+    next();
+  } catch (error) {
+    return res.status(401).json({
+      message: error.message,
+      success: false,
+    });
+  }
+};
+
+export default authMiddelware
