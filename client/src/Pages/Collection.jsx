@@ -1,11 +1,11 @@
 import React, { useContext, useState, useEffect } from "react";
-import { ShopContext } from "../Components/ShopContext.jsx";
+import { ShopContext } from "../Context/ShopContext.jsx";
 import { assets } from "../assets/assets.js";
 import ProductItem from "../Components/ProductItem.jsx";
 import Titel from "../Components/Titel.jsx";
 
 const Collection = () => {
-  const { products } = useContext(ShopContext);
+  const { products , search,showsearch } = useContext(ShopContext);
 
   const [isshow, setisshow] = useState(false);
   const [pro, setpro] = useState([]);
@@ -21,6 +21,11 @@ const productfilter = ()=>{
   if(category.length > 0 ){
      filproduct = filproduct.filter(item=>category.includes(item.category))
   }
+
+  if(showsearch && search){
+     filproduct = filproduct.filter(item=>item.name.toLowerCase().includes(search.toLowerCase()));
+  }
+
   if(subCategory.length > 0 ){
      filproduct = filproduct.filter(item=>subCategory.includes(item.subCategory))
   }
@@ -53,7 +58,7 @@ optionfilter();
   useEffect(() => {
     productfilter();
  
-  }, [category , subCategory , products ]);
+  }, [category , subCategory , products ,search,showsearch ]);
 
 
   

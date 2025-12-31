@@ -69,6 +69,12 @@ import returnPolicy  from '../assets/returnPolicy.png'
 import exchange from '../assets/exchange.png'
 import support from '../assets/support.png'
 import Dropdown from '../assets/dropdown.svg'
+import Cross from '../assets/cross.svg'
+import Searchicon from '../assets/searchIcon.svg'
+import Star from '../assets/star.png'
+import half_star from '../assets/half_star.svg'
+import strip from '../assets/strip.png'
+import razorpay from '../assets/razorpay.png'
 
 
 
@@ -80,7 +86,13 @@ export const assets  = {
     returnPolicy,
     exchange,
     support,
-    Dropdown
+    Dropdown,
+    Cross,
+    Searchicon,
+    Star,
+    half_star,
+    strip,
+    razorpay
 }
 
 

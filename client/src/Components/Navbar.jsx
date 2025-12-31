@@ -1,8 +1,10 @@
-import React from "react";
+import React, { useContext } from "react";
 import { assets } from "../assets/assets";
 import { Link, NavLink } from "react-router-dom";
+import { ShopContext } from "../Context/ShopContext.jsx";
 
 const Navbar = ({ open, setopen }) => {
+  const { getCartCount , setshowsearch} = useContext(ShopContext)
   return (
     <>
       {/* ===== NAVBAR (STATIC – NO TRANSLATE) ===== */}
@@ -34,12 +36,13 @@ const Navbar = ({ open, setopen }) => {
         
 
         {/* Icons */}
-        <div className="flex items-center gap-5">
+        <div className="flex items-center gap-5 cursor-pointer">
           <lord-icon
             src="https://cdn.lordicon.com/wjyqkiew.json"
             trigger="hover"
             colors="primary:#000000"
             style={{ width: 28, height: 28 }}
+            onClick={()=>setshowsearch(true)}
           />
 <div className="relative group">
   {/* Profile Icon */}
@@ -90,8 +93,8 @@ const Navbar = ({ open, setopen }) => {
               colors="primary:#000000"
               style={{ width: 28, height: 28 }}
             />
-            <span className="absolute -top-2 -right-2 bg-black text-white text-xs px-1.5 rounded-full">
-              3
+            <span className="absolute -top-1 -right-2 bg-black text-white text-xs px-1.5 rounded-full">
+             {getCartCount()}
             </span>
           </Link>
 

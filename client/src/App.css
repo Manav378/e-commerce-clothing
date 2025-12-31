@@ -8,10 +8,24 @@
   font-weight: 500; /* Change weight if needed */
   font-style: normal;
 }
+::-webkit-scrollbar{
+  display: none;
+}
 
 @media(max-width:640px){
   a.active{
     background-color: black;
     color: white
   }
+}
+
+
+.input {
+  @apply w-full px-4 py-2 border rounded-lg outline-none
+         focus:ring-2 focus:ring-black;
+}
+
+.payment-btn {
+  @apply px-4 py-2 rounded-lg border flex items-center
+         justify-center gap-2 transition;
 }

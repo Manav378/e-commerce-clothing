@@ -15,6 +15,8 @@ import Orders from './Pages/Orders.jsx'
 import Navbar from './Components/Navbar.jsx'
 import Footer from './Components/footer.jsx'
 import React from 'react'
+import SearchBar from './Components/SearchBar.jsx'
+ import { ToastContainer, toast } from 'react-toastify';
 function App() {
   
   const [open, setopen] = useState(false);
@@ -22,7 +24,9 @@ function App() {
   return (
     <>
      <div className=' px-4 sm:px-[7vw] md:px-[7vw] lg:px-[7vw]' >
+      <ToastContainer/>
       <Navbar open={open} setopen = {setopen}/>
+      <SearchBar/>
     
       <Routes>
         <Route path='/' element={<Home open={open} setopen = {setopen}/>} />
