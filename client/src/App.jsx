@@ -49,18 +49,6 @@ function App() {
         {!hidenavbarfooter && <Footer open={open} />}
 
 
-        <ToastContainer
-          position="top-right"
-          autoClose={2500}         // Toast 2.5s baad auto close
-          hideProgressBar={true}
-          newestOnTop={true}
-          closeOnClick={true}      // Click par close hona chahiye
-          pauseOnHover={true}
-          draggable={true}         // Drag kar ke bhi close kar sakte ho
-          theme="light"
-          toastClassName="bg-white border border-black/20 text-black rounded-none shadow-sm px-5 py-3"
-          bodyClassName="text-sm tracking-wide font-light"
-        />
 
 
 

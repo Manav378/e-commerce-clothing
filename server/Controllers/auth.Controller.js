@@ -4,6 +4,8 @@ import UserModels from "../models/Usermodels.js";
 import transporter from "../config/smtp.js";
 import { verifyEmailTemplate } from "../utils/verifyEmailTemplate.js";
 import { otpEmailTemplate } from "../utils/OtpTemplate.js";
+import validator from 'validator'
+
 //----------------- REGISTER ✅ -------------------//
 export const register = async (req, res) => {
   try {
@@ -26,6 +28,14 @@ export const register = async (req, res) => {
       });
     }
 
+    if(!validator.isEmail(email)){
+      return res.status(401).json({message:"Please Enter Valid Email",success:false})
+    }
+
+    if(password.length < 8){
+      return res.json({message:"Please Enter Strong Password" , success:false})
+    }
+
     const hashedPassword = await bcrypt.hash(password, 10);
 
     
@@ -37,7 +47,7 @@ export const register = async (req, res) => {
     });
     user.save();
 
-    const token = jwt.sign({ id: user._id }, process.env.JSON_TOKEN, {
+    const token = jwt.sign({ id: user._id }, process.env.JWT_TOKEN, {
       expiresIn: "7d",
     });
 
@@ -92,12 +102,6 @@ export const login = async (req, res) => {
     }
 
 
-    //    if (!user.isVerified) {
-    //   return res.status(403).json({
-    //     success: false,
-    //     message: "Please verify your email first",
-    //   });
-    // }
     const isMatched = await bcrypt.compare(password, user.password);
     if (!isMatched) {
       return res.status(401).json({
@@ -106,7 +110,7 @@ export const login = async (req, res) => {
       });
     }
 
-    const token = jwt.sign({ id: user._id }, process.env.JSON_TOKEN, {
+    const token = jwt.sign({ id: user._id }, process.env.JWT_TOKEN, {
       expiresIn: "7d",
     });
 
@@ -178,7 +182,7 @@ export const sendVerifyotp = async (req, res) => {
     await user.save();
 
     await transporter.sendMail({
-      from: `"TRENDSPA" <${process.env.SENDER_EMAIL}>`,
+      from: `"TRENDCASA" <${process.env.SENDER_EMAIL}>`,
       to: user.email,
       subject: "Account Verification OTP",
       text: `Your account verification OTP is ${otp}.`,
@@ -289,7 +293,7 @@ export const resetOtp = async (req, res) => {
     await user.save();
 
     await transporter.sendMail({
-      from: `"TRENDSPA" <${process.env.SENDER_EMAIL}>`,
+      from: `"TRENDCASA" <${process.env.SENDER_EMAIL}>`,
       to: user.email,
       subject: "Reset Password OTP",
       text: `Your OTP to reset your password is ${otp}.`,
@@ -360,3 +364,19 @@ export const resetpassword = async (req, res) => {
     });
   }
 };
+
+
+export const adminLogin = async(req,res)=>{
+        try {
+          const {email , password} = req.body;
+          if(email === process.env.ADMIN_EMAIL && password === process.env.ADMIN_PASSWORD){
+            const token = jwt.sign(email+password , process.env.JWT_TOKEN)
+            res.json({success:true, message:token} )
+          }else{
+            res.json({success:false, message:'Invalid credentials'} )
+          }
+        } catch (error) {
+          return res.json({success:false , message:error.message});
+        }
+}
+

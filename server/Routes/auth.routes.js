@@ -1,6 +1,7 @@
 import express from 'express'
-import { register, login , logout, sendVerifyotp, VerifyOTP, resetOtp, resetpassword, isAuthenticated } from "../Controllers/auth.Controller.js";
+import { register, login , logout, sendVerifyotp, VerifyOTP, resetOtp, resetpassword, isAuthenticated, adminLogin } from "../Controllers/auth.Controller.js";
 import authMiddelware from '../Middelware/auth.middelware.js';
+import adminAuth from '../Middelware/Adminauth.js';
 
 const router =  express.Router();
 
@@ -13,6 +14,7 @@ router.post("/verify-otp", authMiddelware , VerifyOTP);
 router.get("/isAunthenticated", authMiddelware, isAuthenticated);
 router.post("/send-reset-otp", resetOtp);
 router.post("/send-reset-password", resetpassword);
+router.post('/admin' , adminLogin)
 
 
 
