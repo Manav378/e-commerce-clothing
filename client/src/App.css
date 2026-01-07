@@ -19,6 +19,48 @@
   }
 }
 
+/* Base toast container */
+.custom-toast {
+  background-color: #ffffff !important; /* pure white */
+  color: #111827 !important;             /* dark text for readability */
+  border-radius: 14px !important;        /* rounded corners */
+  font-weight: 500 !important;
+  font-size: 15px !important;
+  padding: 14px 18px !important;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15) !important; /* soft shadow */
+  border-left: 6px solid #4f46e5 !important; /* accent color border for success */
+  display: flex;
+  align-items: center;
+}
+
+/* Body inside toast */
+.custom-toast-body {
+  margin: 0;
+  flex: 1;
+}
+
+/* Success toast variation */
+.Toastify__toast--success.custom-toast {
+  border-left-color: #10b981 !important; /* green accent */
+}
+
+/* Error toast variation */
+.Toastify__toast--error.custom-toast {
+  border-left-color: #ef4444 !important; /* red accent */
+}
+
+/* Info toast variation */
+.Toastify__toast--info.custom-toast {
+  border-left-color: #3b82f6 !important; /* blue accent */
+}
+
+/* Warning toast variation */
+.Toastify__toast--warning.custom-toast {
+  border-left-color: #f59e0b !important; /* yellow accent */
+}
+
+
+
 
 .input {
   @apply w-full px-4 py-2 border rounded-lg outline-none

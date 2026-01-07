@@ -1,85 +1,114 @@
-import axios from 'axios';
-import React, { useState ,useEffect} from 'react'
-import { toast } from 'react-toastify';
-import { X } from "lucide-react";
-import { currency } from '../App.jsx';
-<X size={20} />
+import axios from 'axios'
+import React, { useState, useEffect } from 'react'
+import { toast } from 'react-toastify'
+import { X } from "lucide-react"
+import { currency } from '../App.jsx'
 
+const _List = ({ backendUrl, token }) => {
 
-const _List = ({backenUrl , token}) => {
-        
-        const [List, setList] = useState([]);
+  const [List, setList] = useState([])
 
-        const fetchData = async()=>{
-            try {
-            const response = await axios.get(backenUrl + '/api/product/list',{headers:{token}})
-          if(response.data.success){
-            console.log(response.data)
-            setList(response.data.products)
-          }else{
-            toast.error(response.data.message)
-          }
-          } catch (error) {
-            toast.error(error.message)
-          }
-          
-        }
+  const fetchData = async () => {
+    try {
+      const response = await axios.get(
+        backendUrl + '/api/product/list',
+        { headers: { token } }
+      )
 
-        const handelList = async(id)=>{
-          try {
-            const response =   await axios.post(backenUrl + '/api/product/remove', {id},{headers:{token}})
-              if(response.data.success){
-                toast.success("Product removed")
-               await fetchData()
+      if (response.data.success) {
+        setList(response.data.products)
+      } else {
+        toast.error(response.data.message)
+      }
+    } catch (error) {
+      toast.error(error.message)
+    }
+  }
 
-              }else{
-                toast.error(response.data.message);
-              }
-            } catch (error) {
-            toast.error(error.message)
-            
-          }
-          
-      
+  const handelList = async (id) => {
+    try {
+      const response = await axios.post(
+        backendUrl + '/api/product/remove',
+        { id },
+        { headers: { token } }
+      )
 
-        }
+      if (response.data.success) {
+        toast.success("Product removed")
+        fetchData()
+      } else {
+        toast.error(response.data.message)
+      }
+    } catch (error) {
+      toast.error(error.message)
+    }
+  }
 
-        useEffect(() => {
-          fetchData()
-          
-        }, []);
+  useEffect(() => {
+    fetchData()
+  }, [])
 
   return (
-    < >
-      <p className='mb-2 text-2xl font-bold text'>ALL PRODUCTS LIST</p>
-      <div className='flex flex-col gap-2'>
-
-        <div className='grid grid-cols-[100px_2fr_1fr_100px_80px] gap-4 p-3 items-center text-sm font-semibold rounded-sm bg-slate-300 '>
-          <p>Image</p>
-          <p>Name</p>
-          <p>Category</p>
-          <p>Price</p>
-          <p>Action</p>
-        </div>
+    <>
+      <p className='mb-4 text-2xl font-bold font-display'>ALL PRODUCTS LIST</p>
 
      
-
-          {
-            List.map((item , index)=>(
-                 <div key={index} className='grid grid-cols-[100px_2fr_1fr_100px_80px] gap-4 p-3 border border-slate-300 items-center text-md'>
-                <img  src={item.image[0]} width={'80px'} alt="" />
-                <p>{item.name}</p>
-                <p>{item.category}</p>
-                <p>{currency}{item.price}</p>
-               <X onClick={()=>handelList(item._id)} className='cursor-pointer' size={20} />
-              </div>
-            ))
-          }
-
-
-
+      <div className='hidden md:grid grid-cols-[100px_2fr_1fr_100px_80px] gap-4 p-3 font-semibold bg-slate-300 rounded'>
+        <p className='font-display'>Image</p>
+        <p className='font-display'>Name</p>
+        <p className='font-display'>Category</p>
+        <p className='font-display'>Price</p>
+        <p className='font-display'>Action</p>
       </div>
-      
+
+  
+      <div className='flex flex-col gap-4 mt-2'>
+        {
+          List.map((item, index) => (
+            <div
+              key={index}
+              className='
+                border border-slate-400 rounded-lg p-3
+                flex flex-col gap-3
+                md:grid md:grid-cols-[100px_2fr_1fr_100px_80px] md:items-center
+              '
+            >
+            
+              <div className='flex justify-center md:justify-start'>
+                <img
+                  src={item.image[0]}
+                  className='w-24 h-24 object-cover rounded'
+                  alt=""
+                />
+              </div>
+
+              
+              <p className='font-semibold text-lg md:text-base font-display'>
+                {item.name}
+              </p>
+
+        
+              <p className='text-sm text-gray-600 font-display'>
+                {item.category}
+              </p>
+
+           
+              <p className='font-semibold font-display'>
+                {currency}{item.price}
+              </p>
+
+             
+              <div className='flex justify-end md:justify-center'>
+                <X
+                  size={22}
+                  className='cursor-pointer text-black-500 hover:scale-110 transition'
+                  onClick={() => handelList(item._id)}
+                />
+              </div>
+            </div>
+          ))
+        }
+      </div>
     </>
   )
 }

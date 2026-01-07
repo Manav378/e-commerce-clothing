@@ -1,45 +1,36 @@
-import React from 'react'
-import { assets } from '../assets/assets'
+import React from "react";
+import { assets } from "../assets/assets";
+import { Menu } from "lucide-react";
 
-const Navbar = ({settoken}) => {
-
-  const logout = ()=>{
-    settoken('');
-    sessionStorage.clear('adminToastShown')
+const Navbar = ({ settoken, setSidebarOpen }) => {
+  const logout = () => {
+    settoken("");
+    sessionStorage.clear("adminToastShown");
     localStorage.clear("token");
-  }
+  };
+
   return (
-    <div className='flex items-center justify-between px-6 py-1 border-b border-b-gray-200'>
+    <div className="flex items-center justify-between px-4 md:px-6 py-3 border-b border-gray-400 bg-slate-100">
       
-      {/* Logo */}
-      <img
-        src={assets.logo}
-        className=''
-        width={'130px'}
-        alt="TrendCasa Logo"
-      />
+     
+      <div className="flex items-center gap-3">
+        <Menu
+          className="md:hidden cursor-pointer"
+          onClick={() => setSidebarOpen(true)}
+        />
 
-      {/* Logout Button */}
-<button
-onClick={logout}
-  className="
-    px-5 py-2
-    rounded-sm
-    bg-black text-white
-    font-medium
-    hover:bg-gray-800
-    transition duration-200
-    active:scale-95
-    cursor-pointer
-  "
->
-  Logout
-</button>
+        <img src={assets.logo} width="120" alt="TrendCasa" />
+      </div>
 
-
-
+    
+      <button
+        onClick={logout}
+        className="px-4 py-2 bg-black text-white font-display rounded hover:bg-gray-800 active:scale-95"
+      >
+        Logout
+      </button>
     </div>
-  )
-}
+  );
+};
 
-export default Navbar
+export default Navbar;

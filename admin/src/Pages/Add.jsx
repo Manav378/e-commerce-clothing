@@ -4,7 +4,7 @@ import { useState } from 'react';
 import axios from 'axios';
 import { toast } from 'react-toastify';
 
-const Add = ({ backenUrl, token }) => {
+const Add = ({ backendUrl, token }) => {
 
   const [image1, setimage1] = useState(false);
   const [image2, setimage2] = useState(false);
@@ -40,7 +40,7 @@ const Add = ({ backenUrl, token }) => {
       image3 && formData.append("image3", image3)
       image4 && formData.append("image4", image4)
 
-      const response = await axios.post(`${backenUrl}/api/product/add`, formData, { headers: { token } })
+      const response = await axios.post(`${backendUrl}/api/product/add`, formData, { headers: { token } })
 
       if(response.data.success){
         toast.success("Product Added")
@@ -69,7 +69,7 @@ const Add = ({ backenUrl, token }) => {
 
       {/* Upload Images */}
       <div>
-        <p className="mb-2 font-medium">Upload Image</p>
+        <p className="mb-2 font-medium font-display">Upload Image</p>
         <div className="flex flex-wrap gap-3">
 
           <label htmlFor="image1">
@@ -117,7 +117,7 @@ const Add = ({ backenUrl, token }) => {
 
       {/* Product Name */}
       <div className="w-full">
-        <p className="mb-2">Product name</p>
+        <p className="mb-2 font-display">Product name</p>
         <input
           onChange={(e) => setName(e.target.value)}
           value={name}
@@ -130,7 +130,7 @@ const Add = ({ backenUrl, token }) => {
 
       {/* Product Description */}
       <div className="w-full">
-        <p className="mb-2">Product description</p>
+        <p className="mb-2 font-display">Product description</p>
         <textarea
           onChange={(e) => setdescription(e.target.value)}
           value={description}
@@ -145,7 +145,7 @@ const Add = ({ backenUrl, token }) => {
       <div className="flex flex-col sm:flex-row gap-4">
 
         <div>
-          <p className="mb-2">Product category</p>
+          <p className="mb-2 font-display">Product category</p>
           <select onChange={(e) => setcategory(e.target.value)} value={category} className="border p-2 rounded">
 
             <option>Men</option>
@@ -155,7 +155,7 @@ const Add = ({ backenUrl, token }) => {
         </div>
 
         <div>
-          <p className="mb-2">Product Subcategory</p>
+          <p className="mb-2 font-display">Product Subcategory</p>
           <select onChange={(e) => setsubcategory(e.target.value)} value={subcategory} className="border p-2 rounded">
             <option>Topwear</option>
             <option>Bottomwear</option>
@@ -164,7 +164,7 @@ const Add = ({ backenUrl, token }) => {
         </div>
 
         <div>
-          <p className="mb-2">Product Price</p>
+          <p className="mb-2 font-display">Product Price</p>
           <input onChange={(e) => setprice(e.target.value)}
             value={price}
             className="border p-2 rounded w-32"
@@ -177,7 +177,7 @@ const Add = ({ backenUrl, token }) => {
 
       {/* Product Sizes */}
       <div>
-        <p className="mb-2">Product Sizes</p>
+        <p className="mb-2 font-display">Product Sizes</p>
         <div className="flex flex-wrap gap-2">
           {["S", "M", "L", "XL", "XXL"].map(size => (
             <div
@@ -192,7 +192,7 @@ const Add = ({ backenUrl, token }) => {
       </div>
 
       {/* Bestseller */}
-      <div className="flex gap-2 items-center">
+      <div className="flex gap-2 items-center font-display">
         <input onChange={() => setbestseller(prev => !prev)} checked={bestseller} type="checkbox" id="bestseller" />
         <label htmlFor="bestseller">Add to bestseller</label>
       </div>
@@ -203,7 +203,7 @@ const Add = ({ backenUrl, token }) => {
         type="submit"
         className="mt-4 bg-black text-white px-6 py-3 rounded-sm 
              hover:bg-neutral-900 transition-all duration-200
-             w-full sm:w-fit cursor-pointer"
+             w-full sm:w-fit cursor-pointer font-display"
       >
         ADD PRODUCT
       </button>

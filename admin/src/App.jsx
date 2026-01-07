@@ -1,68 +1,47 @@
-import React from 'react';
-import { Routes, Route, useFetcher } from 'react-router-dom';
-import Navbar from './Components/Navbar.jsx';
-import Sidebar from './Components/Sidebar.jsx';
-import Add from './Pages/Add.jsx';
-import _List from './Pages/_List.jsx';
-import Orders from './Pages/Orders.jsx';
-import { useState,useEffect,useRef } from 'react';
-import Login from './Components/Login.jsx';
-import {   toast } from 'react-toastify';
+import React, { useState, useEffect } from "react";
+import { Routes, Route } from "react-router-dom";
+import Navbar from "./Components/Navbar";
+import Sidebar from "./Components/Sidebar";
+import Add from "./Pages/Add";
+import _List from "./Pages/_List";
+import Orders from "./Pages/Orders";
+import Login from "./Components/Login";
+import { toast } from "react-toastify";
 
-export const currency = '$';
+export const currency = "$";
+
 const App = () => {
+  const [token, settoken] = useState(localStorage.getItem("token") || "");
+  const [sidebarOpen, setSidebarOpen] = useState(false);
 
-  const [token, settoken] = useState(localStorage.getItem('token') ? localStorage.getItem('token') :'');
+  const backendUrl = import.meta.env.VITE_BACKEND_URL;
 
-  const backenUrl = import.meta.env.VITE_BACKEND_URL
- 
+  useEffect(() => {
+    if (token && !sessionStorage.getItem("adminToastShown")) {
+      toast.success("Welcome back to Admin Panel 👋");
+      sessionStorage.setItem("adminToastShown", "true");
+    }
+  }, [token]);
 
-useEffect(() => {
-  if (token && !sessionStorage.getItem("adminToastShown")) {
-    toast.success("Welcome back to Admin Panel 👋");
-    sessionStorage.setItem("adminToastShown", "true");
+  if (!token) {
+    return <Login backendUrl={backendUrl} settoken={settoken} />;
   }
-}, [token]);
 
-
-
-
- 
   return (
-   
-    <div className="font-sans min-h-screen bg-gray-100 flex flex-col">
+    <div className="min-h-screen bg-gray-100 flex flex-col">
+      <Navbar settoken={settoken} setSidebarOpen={setSidebarOpen} />
 
-    
-      {token === "" ? <Login backendUrl={backenUrl}  settoken={settoken}/> 
-      :  <>
-   
+      <div className="flex flex-1">
+        <Sidebar open={sidebarOpen} setOpen={setSidebarOpen} />
 
-      {/* Top Navbar */}
-      <Navbar settoken={settoken} />
-
-      {/* Main Layout */}
-      <div className="flex flex-1 min-h-[calc(100vh-64px)]">
-        {/* Sidebar */}
-        <Sidebar />
-
-        {/* Page Content */}
-        <main className="flex-1 p-6 overflow-auto">
+        <main className="flex-1 p-4 md:p-6 overflow-auto">
           <Routes>
-            <Route path="/add" element={<Add backenUrl={backenUrl} token={token}  />} />
-            <Route path="/list" element={<_List token={token} backenUrl={backenUrl}/>} />
-            <Route path="/orders" element={<Orders token={token} />} />
+            <Route path="/add" element={<Add backendUrl={backendUrl} token={token} />} />
+            <Route path="/list" element={<_List token={token} backendUrl={backendUrl} />} />
+            <Route path="/orders" element={<Orders token={token} backendUrl={backendUrl} />} />
           </Routes>
         </main>
       </div>
-
-
-
-
-     </>
-      }
-
-      
-  
     </div>
   );
 };

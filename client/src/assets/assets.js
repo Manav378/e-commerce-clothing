@@ -74,7 +74,9 @@ import Searchicon from '../assets/searchIcon.svg'
 import Star from '../assets/star.png'
 import half_star from '../assets/half_star.svg'
 import strip from '../assets/strip.png'
-import razorpay from '../assets/razorpay.png'
+import paytm from '../assets/paytm.png'
+import aboutImg from '../assets/aboutimg.png'
+import contactImg from '../assets/contactImg.png'
 
 
 
@@ -92,7 +94,9 @@ export const assets  = {
     Star,
     half_star,
     strip,
-    razorpay
+    paytm,
+    aboutImg,
+    contactImg
 }
 
 

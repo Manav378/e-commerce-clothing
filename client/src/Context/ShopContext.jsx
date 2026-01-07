@@ -2,8 +2,8 @@ import { createContext, useState, useEffect } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import axios from "axios";
 import { toast } from "react-toastify";
-import { products } from "../assets/assets";
 import React from "react";
+
 export const ShopContext = createContext();
 
 const ShopContextProvider = ({ children }) => {
@@ -14,7 +14,9 @@ const ShopContextProvider = ({ children }) => {
 
   const [isLoggedin, setisLoggedin] = useState(false);
   const [UserData, setUserData] = useState(null);
+  const [products, setproducts] = useState([]);
   
+axios.defaults.withCredentials = true;
 
   // Auth check
   const getAuthState = async () => {
@@ -29,14 +31,33 @@ const ShopContextProvider = ({ children }) => {
       } else {
         setisLoggedin(false);
         setUserData(null);
-        toast.error("User Not authenticated!")
+    
       }
     } catch (error) {
       setisLoggedin(false);
       setUserData(null);
-        toast.error("User Not authenticated!")
+     
     }
   };
+
+
+  const getProductsData = async()=>{
+    try {
+      const response = await axios.get(backendUrl+"/api/product/list" )
+      if(response.data.success){
+        setproducts(response.data.products)
+      }else{
+        toast.error(response.data.message)
+      }
+    } catch (error) {
+      toast.error(error.message)
+    }
+  }
+
+  useEffect(() => {
+    
+    getProductsData()
+  }, []);
 
 
   const getUserData = async()=>{
@@ -72,22 +93,36 @@ const ShopContextProvider = ({ children }) => {
     }
   };
 
-  // Cart & other stuff
   const [CartItems, setCartItems] = useState({});
   const currency = "$";
   const delevery_fee = 10;
   const [search, setsearch] = useState("");
   const [showsearch, setshowsearch] = useState(false);
 
-  const addtocart = (itemId, size) => {
-    let cartData = structuredClone(CartItems);
-    if (!size) {
-      toast.error("Select Product Size");
-      return;
+  const addtocart = async(itemId, size) => {
+ const cartData = structuredClone(CartItems || {});
+
+if (!cartData[itemId]) {
+  cartData[itemId] = {};
+}
+
+if (!cartData[itemId][size]) {
+  cartData[itemId][size] = 0;
+}
+
+cartData[itemId][size] += 1;
+
+setCartItems(cartData);
+
+
+    try {
+      await axios.post(backendUrl+"/api/Cart/add",{itemId , size},{withCredentials:true});
+    } catch (error) {
+      console.log(error);
+      toast.error(error.message);
     }
-    if (!cartData[itemId]) cartData[itemId] = {};
-    cartData[itemId][size] = (cartData[itemId][size] || 0) + 1;
-    setCartItems(cartData);
+    
+    
   };
 
   const getCartCount = () => {
@@ -100,11 +135,36 @@ const ShopContextProvider = ({ children }) => {
     return count;
   };
 
-  const updateQuantity = (itemId, size, quantity) => {
-    let cartData = structuredClone(CartItems);
-    cartData[itemId][size] = quantity;
-    setCartItems(cartData);
+  const updateQuantity = async (itemId, size, quantity) => {
+   
+    setCartItems(prev => {
+      const cartData = structuredClone(prev || {});
+      if (quantity === 0) {
+        if (cartData[itemId]) {
+          delete cartData[itemId][size];
+          if (Object.keys(cartData[itemId]).length === 0) delete cartData[itemId];
+        }
+      } else {
+        if (!cartData[itemId]) cartData[itemId] = {};
+        cartData[itemId][size] = quantity;
+      }
+      return cartData;
+    });
+
+   
+    try {
+      await axios.post(
+        backendUrl + "/api/Cart/update",
+        { itemId, size, quantity: Number(quantity) },
+        { withCredentials: true }
+      );
+    } catch (error) {
+      toast.error("Cart update failed");
+    }
   };
+
+
+
 
   const getCartAmount = () => {
     let total = 0;
@@ -116,6 +176,31 @@ const ShopContextProvider = ({ children }) => {
     }
     return total;
   };
+
+ const getUserCartData = async () => {
+  try {
+    const { data } = await axios.post(
+      `${backendUrl}/api/Cart/get`,
+      {}, 
+      { withCredentials: true } // MUST have this
+    );
+
+    if (data.success) {
+      setCartItems(data.message);
+    } else {
+      toast.error("Failed to fetch cart data");
+    }
+  } catch (error) {
+    console.log(error);
+    // toast.error(error.response?.data?.message || error.message);
+  }
+};
+
+useEffect(() => {
+  
+    getUserCartData();
+  
+}, []);
 
   return (
     <ShopContext.Provider
@@ -140,8 +225,8 @@ const ShopContextProvider = ({ children }) => {
         logout,
         navigate,
         getUserData,
-        UserData,
-        setUserData
+        setCartItems
+        
       }}
     >
       {children}

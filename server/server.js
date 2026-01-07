@@ -7,6 +7,9 @@ import router from './Routes/auth.routes.js'
 import userRouter from './Routes/userData.route.js'
 import connCloudinary from './config/cloudinary.js'
 import ProductRouter from './Routes/product.route.js'
+import CartRouter from './Routes/Cart.routes.js'
+import OrderRouter from './Routes/Orders.routes.js'
+import Contactrouter from './Routes/contact.routes.js'
 dotenv.config();
 const app = express()
 conndb();
@@ -14,10 +17,15 @@ connCloudinary()
 const PORT = process.env.PORT || 4000
 app.use(express.json())
 app.use(cookieParser())
+app.use(express.urlencoded({ extended: true }));
+
 const allowedOrigins = ['http://localhost:5173','http://localhost:5174']
 app.use(cors({ origin:allowedOrigins,credentials:true}))
 app.use("/api/auth" , router);
 app.use("/api/product" , ProductRouter);
+app.use("/api/orders" , OrderRouter)
+app.use("/api", Contactrouter);
+app.use("/api/Cart" , CartRouter)
 app.use("/api/user" , userRouter)
 app.get("/auth" , (req,res)=>{
     res.status(200).send("Hi i am server")

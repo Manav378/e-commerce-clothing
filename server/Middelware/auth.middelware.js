@@ -1,7 +1,6 @@
 import jwt from 'jsonwebtoken'
 
 
-
 const authMiddelware = (req, res, next) => {
   try {
     const { token } = req.cookies;
@@ -13,12 +12,12 @@ const authMiddelware = (req, res, next) => {
       });
     }
 
-    const decoded = jwt.verify(token, process.env.JSON_TOKEN);
+    const decoded = jwt.verify(token, process.env.JWT_TOKEN);
 
-    // ✅ ENSURE body exists
+   
     if (!req.body) req.body = {};
 
-    req.body.userId = decoded.id;
+    req.userId = decoded.id;
 
     next();
   } catch (error) {
@@ -30,3 +29,5 @@ const authMiddelware = (req, res, next) => {
 };
 
 export default authMiddelware
+
+

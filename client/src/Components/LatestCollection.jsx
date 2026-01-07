@@ -10,7 +10,7 @@ const LatestCollection = () => {
     const [latestProduct, setlatestProduct] = useState([]);
     useEffect(() => {
       setlatestProduct(products.slice(0,10));
-    }, []);
+    }, [products]);
   return (
     <div className={``} >
         <div className='text-center py-2 px-3 '>

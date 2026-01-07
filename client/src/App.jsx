@@ -18,14 +18,24 @@ import { toast, ToastContainer } from 'react-toastify';
 import ResetPassword from './Pages/resetPassword.jsx'
 import "react-toastify/dist/ReactToastify.css";
 import EmailVerify from './Pages/EmailVerify.jsx'
+import { useEffect } from 'react'
+import Verify from './Pages/Verify.jsx'
 function App() {
 
   const [open, setopen] = useState(false);
   const location = useLocation();
   const hidenavbarfooter = location.pathname.toLowerCase() === '/signup' || location.pathname.toLowerCase() === '/reset-password' || location.pathname === '/EmailVerify' 
+
+
+
+
+
   return (
     <>
       <div className=' px-4 sm:px-[7vw] md:px-[7vw] lg:px-[7vw]' >
+
+
+
 
         {!hidenavbarfooter && <Navbar open={open} setopen={setopen} />}
 
@@ -44,6 +54,7 @@ function App() {
           <Route path='/Orders' element={<Orders />} />
           <Route path='/reset-password' element={<ResetPassword />} />
           <Route path='/EmailVerify' element={<EmailVerify />} />
+          <Route path='/verify' element={<Verify />} />
 
         </Routes>
         {!hidenavbarfooter && <Footer open={open} />}

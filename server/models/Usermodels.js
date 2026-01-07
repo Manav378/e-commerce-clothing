@@ -9,7 +9,7 @@ const UserSchema = new mongoose.Schema({
   isAccountVerified: { type: Boolean, default: false },
   resetotp: { type: String, default: "" },
   resetotpExpireAt: { type: Number, default: 0 },
-  CartData:{type:Object , default:{}}
+  cartData:{type:Object , default:{}}
 },{minimize:false});
 
 

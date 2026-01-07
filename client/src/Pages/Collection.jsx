@@ -81,7 +81,7 @@ optionfilter();
  
 
   return (
-    <div className="w-full  min-h-screen border border-slate-300">
+    <div className="w-full  min-h-screen ">
    <Titel text1={'ALL'} text2={'COLLECTION'} className=''/>
 
  <select onChange={(e)=>setsorType(e.target.value)}
@@ -96,10 +96,10 @@ optionfilter();
     bg-white 
     focus:outline-none 
     focus:ring-2 
-    focus:ring-black 
-    focus:border-black
+    focus:ring-slate-border-slate-200 
+    focus:border-slate-200
     cursor-pointer
-    hover:border-black
+    hover:border-slate-200
     transition-all
   "
 >
@@ -132,11 +132,11 @@ optionfilter();
           border-r border-slate-300 bg-white
           ${isshow ? "block" : "hidden"} sm:block`}
         >
-          <h2 className="hidden sm:block text-3xl font-bold mb-2">Filters</h2>
+          <h2 className="hidden sm:block text-3xl font-bold cormorant mb-2">Filters</h2>
 
           {/* Categories */}
-          <div className="border my-4 p-3 rounded-md">
-            <h3 className="font-semibold mb-2">Categories</h3>
+          <div className="border my-4 p-3 border-slate-400 cormorant rounded-sm">
+            <h3 className="font-semibold cormorant mb-2">Categories</h3>
             {["Men", "Women", "Kids"].map(cat => (
               <label key={cat} className="flex items-center gap-2">
                 <input type="checkbox"     checked={category.includes(cat)} value={cat} className="w-4 h-4" onChange={togglecategory}/> {cat}
@@ -145,7 +145,7 @@ optionfilter();
           </div>
 
           {/* Types */}
-          <div className="border p-3 rounded-md">
+          <div className="border p-3 border-slate-400 cormorant rounded-sm">
             <h3 className="font-semibold mb-2">Types</h3>
             {["Topwear", "Bottomwear", "Winterwear"].map(sub => (
               <label key={sub} className="flex items-center gap-2">
