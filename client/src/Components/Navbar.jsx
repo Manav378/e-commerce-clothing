@@ -26,7 +26,7 @@ const Navbar = ({ open, setopen }) => {
       
       <div className="sticky top-0 z-50 w-full h-[16vh] bg-white flex items-center justify-between px-6 md:px-12 shadow-sm">
 
-    
+        {/* Logo */}
         <div className="sm:w-[14vw] w-[30vw]">
           <NavLink to="/">
             <img src={assets.logo} className="w-full" alt="TRENDCASA Logo" />
@@ -62,18 +62,16 @@ const Navbar = ({ open, setopen }) => {
           />
 
         
-   <div
-  className="relative  cursor-pointer rounded-full"
-  onClick={() => navigate('/collection')}
->
-  <lord-icon
-    src="https://cdn.lordicon.com/kdduutaw.json"
-    trigger="hover"
-    stroke="bold"
-    state="hover-rotation"
-    colors="primary:#000000,secondary:#000000"
-    style={{ width: "28px", height: "28px" }}
-  />
+          <div className="relative group">
+            <lord-icon
+             
+              src="https://cdn.lordicon.com/kdduutaw.json"
+              trigger="hover"
+              stroke="bold"
+              state="hover-rotation"
+              colors="primary:#000000,secondary:#000000"
+              style={{ width: "28px", height: "28px", cursor: "pointer" }}
+            />
 
            <div className="absolute right-0 top-full hidden group-hover:flex z-50">
   <div className="flex flex-col bg-white shadow-lg rounded-xl w-44 overflow-hidden">
