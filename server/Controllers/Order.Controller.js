@@ -3,6 +3,8 @@ import UserModels from "../models/Usermodels.js";
 import Stripe from "stripe";
 import PaytmChecksum from "paytmchecksum";
 import axios from "axios";
+import dotenv from "dotenv";
+dotenv.config();
 
 // global varibales
 const currency = "usd";

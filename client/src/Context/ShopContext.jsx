@@ -206,6 +206,13 @@ setCartItems(cartData);
   }
 };
 
+useEffect(() => {
+  if (isLoggedin) {
+    getUserCartData();
+  } else {
+    setCartItems({});
+  }
+}, [isLoggedin]);
 
 
   return (
