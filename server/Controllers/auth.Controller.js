@@ -8,12 +8,28 @@ import validator from "validator";
 
 const isProd = process.env.NODE_ENV === "production";
 
-const cookieOptions = {
+const allowedOrigins = [
+  'https://e-commerce-clothing-zeta.vercel.app',
+  'https://trendcasa-admin.vercel.app',
+];
+
+app.use(cors({
+  origin: function(origin, callback) {
+    if (!origin) return callback(null, true); // Postman/server
+    if (allowedOrigins.includes(origin)) return callback(null, true);
+    callback(new Error("CORS not allowed"));
+  },
+  credentials: true, // important for cookies
+}));
+
+// cookie example:
+res.cookie("token", token, {
   httpOnly: true,
-  secure: isProd,
-  sameSite: isProd ? "none" : "strict",
-  maxAge: 7 * 24 * 60 * 60 * 1000,
-};
+  secure: isProd,            // must true for HTTPS
+  sameSite: isProd ? "none" : "strict", // cross-site cookies
+  maxAge: 7*24*60*60*1000
+});
+
 
 export const register = async (req, res) => {
   try {
