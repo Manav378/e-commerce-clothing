@@ -19,8 +19,26 @@ app.use(express.json())
 app.use(cookieParser())
 app.use(express.urlencoded({ extended: true }));
 
-const allowedOrigins = ['http://localhost:5173','http://localhost:5174']
-app.use(cors({ origin:allowedOrigins,credentials:true}))
+const allowedOrigins = [
+  'https://e-commerce-clothing-zeta.vercel.app',
+  'https://trendcasa-admin.vercel.app',
+  'http://localhost:5173',
+  'http://localhost:5174'
+];
+
+app.use(cors({
+  origin: function(origin, callback){
+    if(!origin) return callback(null, true); // Postman / server-to-server
+    if(allowedOrigins.indexOf(origin) === -1){
+      return callback(new Error('CORS not allowed'), false);
+    }
+    return callback(null, true);
+  },
+  credentials: true
+}));
+
+
+
 app.use("/api/auth" , router);
 app.use("/api/product" , ProductRouter);
 app.use("/api/orders" , OrderRouter)
