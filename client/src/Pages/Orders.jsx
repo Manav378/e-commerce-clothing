@@ -2,7 +2,8 @@ import React, { useContext, useState, useEffect } from "react";
 import { ShopContext } from "../Context/ShopContext";
 import Titel from "../Components/Titel";
 import { assets } from "../assets/assets";
-import axios from "axios";
+// import axios from "axios";
+import api from "../api";
 import { toast } from "react-toastify";
 
 const Orders = () => {
@@ -11,10 +12,9 @@ const Orders = () => {
 
   const loadOrderData = async () => {
     try {
-      const response = await axios.post(
-        backendUrl + "/api/orders/userorders",
-        {},
-        { withCredentials: true }
+      const response =await api.axios.post(
+       "/api/orders/userorders",
+        {}
       );
 
       if (response.data.success) {

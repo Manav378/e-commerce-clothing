@@ -1,6 +1,7 @@
 import React, { useContext, useState } from "react";
 import { assets } from "../assets/assets";
-import axios from 'axios';
+// import axios from 'axios';
+import api from "../api";
 import { toast } from 'react-toastify';
 import { ShopContext } from "../Context/ShopContext";
 
@@ -15,7 +16,7 @@ const Contact = () => {
   const submitHandler = async (e) => {
     e.preventDefault();
     try {
-      const response = await axios.post(backendUrl + '/api/contact', { Name, email, message } , {withCredentials:true});
+      const response = await api.post( '/api/contact', { Name, email, message } , {withCredentials:true});
       if (response.data.success) {
         toast.success(response.data.message);
         setName('');

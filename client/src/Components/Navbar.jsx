@@ -3,6 +3,7 @@ import { assets } from "../assets/assets";
 import { Link, NavLink, useNavigate } from "react-router-dom";
 import { ShopContext } from "../Context/ShopContext.jsx";
 import axios from "axios";
+import api from "../api.js";
 import { toast } from "react-toastify";
 import { useState } from "react";
 const Navbar = ({ open, setopen }) => {
@@ -12,8 +13,8 @@ const [profileOpen, setProfileOpen] = useState(false);
 
   const logout = async () => {
     try {
-      axios.defaults.withCredentials = true;
-      const { data } = await axios.get(`${backendUrl}/api/auth/logout`);
+      // axios.defaults.withCredentials = true;
+      const { data } = await api.get(`/api/auth/logout`);
       if (data.success) setisLoggedin(false);
       toast.success("Logged out successfully");
       navigate("/Signup");

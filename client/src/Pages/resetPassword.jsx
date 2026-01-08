@@ -3,7 +3,8 @@ import { assets } from "../assets/assets";
 import { useNavigate } from "react-router-dom";
 import { ShopContext } from "../Context/ShopContext";
 import { toast } from "react-toastify";
-import axios from "axios";
+// import axios from "axios";
+import api from "../api";
 
 const ResetPassword = () => {
   const navigate = useNavigate();
@@ -20,8 +21,8 @@ const ResetPassword = () => {
   const OnsubmitEmail = async (e) => {
     e.preventDefault();
     try {
-      const response = await axios.post(
-        backendUrl + "/api/auth/send-reset-otp",
+      const response = await api.post(
+       "/api/auth/send-reset-otp",
         { email }
       );
       response.data.success
@@ -68,8 +69,8 @@ const ResetPassword = () => {
   const newPasswordHandeler = async (e) => {
     e.preventDefault();
     try {
-      const response = await axios.post(
-        backendUrl + "/api/auth/send-reset-password",
+      const response = await api.post(
+      "/api/auth/send-reset-password",
         { email, otp, newpassword }
       );
 

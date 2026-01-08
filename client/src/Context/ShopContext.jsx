@@ -1,7 +1,8 @@
 import { createContext, useState, useEffect } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
-import axios from "axios";
+// import axios from "axios";
 import { toast } from "react-toastify";
+import api from "../api";
 import React from "react";
 
 export const ShopContext = createContext();
@@ -16,14 +17,12 @@ const ShopContextProvider = ({ children }) => {
   const [UserData, setUserData] = useState(null);
   const [products, setproducts] = useState([]);
   
-axios.defaults.withCredentials = true;
+// axios.defaults.withCredentials = true;
 
   // Auth check
   const getAuthState = async () => {
     try {
-      const { data } = await axios.get(`${backendUrl}/api/auth/isAuthenticated`, {
-        withCredentials: true,
-      });
+      const { data } = await api.get(`/api/auth/isAuthenticated`);
 
       if (data.success) {
         setisLoggedin(true);
@@ -43,7 +42,7 @@ axios.defaults.withCredentials = true;
 
   const getProductsData = async()=>{
     try {
-      const response = await axios.get(backendUrl+"/api/product/list" )
+      const response = await api.get("/api/product/list" )
       if(response.data.success){
         setproducts(response.data.products)
       }else{
@@ -62,7 +61,7 @@ axios.defaults.withCredentials = true;
 
   const getUserData = async()=>{
     try {
-        const {data} = await axios.get(`${backendUrl}/api/user/data`)
+        const {data} = await api.get(`/api/user/data`)
         if(data.success){
             setUserData(data.UserData)
         }else{
@@ -92,7 +91,7 @@ useEffect(() => {
   // Logout
   const logout = async () => {
     try {
-      await axios.get(`${backendUrl}/api/auth/logout`, { withCredentials: true });
+      await api.get(`/api/auth/logout`);
       setisLoggedin(false);
       setUserData(null);
       toast.success("Logged out successfully");
@@ -125,7 +124,7 @@ setCartItems(cartData);
 
 
     try {
-      await axios.post(backendUrl+"/api/Cart/add",{itemId , size},{withCredentials:true});
+      await api.post("/api/Cart/add",{itemId , size});
     } catch (error) {
       console.log(error);
       toast.error(error.message);
@@ -163,10 +162,10 @@ setCartItems(cartData);
 
    
     try {
-      await axios.post(
-        backendUrl + "/api/Cart/update",
-        { itemId, size, quantity: Number(quantity) },
-        { withCredentials: true }
+      await api.post(
+       "/api/Cart/update",
+        { itemId, size, quantity: Number(quantity) }
+       
       );
     } catch (error) {
       toast.error("Cart update failed");
@@ -189,10 +188,10 @@ setCartItems(cartData);
 
  const getUserCartData = async () => {
   try {
-    const { data } = await axios.post(
-      `${backendUrl}/api/Cart/get`,
+    const { data } = await api.post(
+      `/api/Cart/get`,
       {}, 
-      { withCredentials: true } // MUST have this
+     
     );
 
     if (data.success) {

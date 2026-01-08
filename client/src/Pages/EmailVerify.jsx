@@ -1,12 +1,13 @@
 import React, { useContext, useEffect } from 'react';
 import { assets } from '../assets/assets';
-import axios from 'axios';
+// import axios from 'axios';
+import api from '../api';
 import { useNavigate } from 'react-router-dom';
 import { toast } from 'react-toastify';
 import { ShopContext } from '../Context/ShopContext';
 
 const EmailVerify = () => {
-  axios.defaults.withCredentials = true;
+  // axios.defaults.withCredentials = true;
 
   const { backendUrl, isLoggedin, userData } = useContext(ShopContext);
   const inputrefs = React.useRef([]);
@@ -39,7 +40,7 @@ const EmailVerify = () => {
       e.preventDefault();
       const otpArray = inputrefs.current.map((e) => e.value);
       const otp = otpArray.join('');
-      const { data } = await axios.post(backendUrl + '/api/auth/verify-otp', { otp });
+      const { data } = await api.post('/api/auth/verify-otp', { otp });
 
       if (data.success) {
         toast.success(data.message);

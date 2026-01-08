@@ -25,10 +25,25 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(cookieParser());
 
+
+
+const allowedOrigins = [
+  'https://trendcasa-fronted.vercel.app', // deployed frontend
+  'http://localhost:5178' // local dev
+];
+
 app.use(
   cors({
-    origin: ['http://localhost:5178', 'http://localhost:5179'],
-    credentials: true,
+    origin: function(origin, callback) {
+      // allow requests with no origin like mobile apps, Postman, etc.
+      if (!origin) return callback(null, true);
+      if (allowedOrigins.indexOf(origin) === -1) {
+        const msg = 'CORS policy: This origin is not allowed';
+        return callback(new Error(msg), false);
+      }
+      return callback(null, true);
+    },
+    credentials: true // cookies ke liye zaruri
   })
 );
 

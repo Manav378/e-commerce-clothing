@@ -4,7 +4,8 @@ import { Link, useNavigate } from "react-router-dom";
 import { assets } from "../assets/assets";
 import { ShopContext } from "../Context/ShopContext";
 import axios from "axios";
-import { toast } from "react-toastify";
+// import { toast } from "react-toastify";
+import api from "../api";
 
 export default function AuthPage() {
   const [isSignUp, setIsSignUp] = useState(true);
@@ -22,10 +23,10 @@ export default function AuthPage() {
       axios.defaults.withCredentials = true;
 
       if (isSignUp) {
-        const { data } = await axios.post(
-          `${backendUrl}/api/auth/register`,
-          { name, email, password },
-          { withCredentials: true }
+        const { data } = await api.post(
+          `/api/auth/register`,
+          { name, email, password }
+          
         );
 
         if (data.success) {
@@ -35,10 +36,10 @@ export default function AuthPage() {
           toast.error(data.message); // backend error message dikhao
         }
       } else {
-        const { data } = await axios.post(
-          `${backendUrl}/api/auth/login`,
+        const { data } = await api.post(
+          `/api/auth/login`,
           { email, password },
-          { withCredentials: true }
+          
         );
 
         if (data.success) {
@@ -56,8 +57,8 @@ export default function AuthPage() {
 
   const verifyEmail = async () => {
     try {
-      const { data } = await axios.post(
-        `${backendUrl}/api/auth/send-verify`,
+      const { data } = await api.post(
+        `/api/auth/send-verify`,
         {},
         { withCredentials: true }
       );
