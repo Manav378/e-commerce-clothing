@@ -4,10 +4,11 @@ import { Link, NavLink, useNavigate } from "react-router-dom";
 import { ShopContext } from "../Context/ShopContext.jsx";
 import axios from "axios";
 import { toast } from "react-toastify";
-
+import { useState } from "react";
 const Navbar = ({ open, setopen }) => {
   const { getCartCount, setshowsearch, backendUrl, setisLoggedin ,isLoggedin} = useContext(ShopContext);
   const navigate = useNavigate();
+const [profileOpen, setProfileOpen] = useState(false);
 
   const logout = async () => {
     try {
@@ -63,47 +64,51 @@ const Navbar = ({ open, setopen }) => {
 
         
           <div className="relative group">
-            <lord-icon
-             
-              src="https://cdn.lordicon.com/kdduutaw.json"
-              trigger="hover"
-              stroke="bold"
-              state="hover-rotation"
-              colors="primary:#000000,secondary:#000000"
-              style={{ width: "28px", height: "28px", cursor: "pointer" }}
-            />
+          <div 
+  className="relative"
+  onMouseEnter={() => setProfileOpen(true)}
+  onMouseLeave={() => setProfileOpen(false)}
+>
+  <lord-icon
+    src="https://cdn.lordicon.com/kdduutaw.json"
+    trigger="hover"
+    stroke="bold"
+    state="hover-rotation"
+    colors="primary:#000000,secondary:#000000"
+    style={{ width: "28px", height: "28px", cursor: "pointer" }}
+    onClick={() => setProfileOpen(prev => !prev)} // Mobile tap
+  />
 
-           <div className="absolute right-0 top-full hidden group-hover:flex z-50">
-  <div className="flex flex-col bg-white shadow-lg rounded-xl w-44 overflow-hidden">
+  {profileOpen && (
+    <div className="absolute right-0 top-full z-50">
+      <div className="flex flex-col bg-white shadow-lg rounded-xl w-44 overflow-hidden">
+        {!isLoggedin ? (
+          <NavLink
+            to="/Signup"
+            className="cormorant px-4 py-2 text-gray-600 hover:bg-gray-100 hover:text-black"
+          >
+            Login / Signup
+          </NavLink>
+        ) : (
+          <>
+            <NavLink
+              to="/orders"
+              className="cormorant px-4 py-2 text-gray-600 hover:bg-gray-100 hover:text-black"
+            >
+              Orders
+            </NavLink>
 
-    {!isLoggedin ? (
-   
-      <NavLink
-        to="/Signup"
-        className="cormorant px-4 py-2 text-gray-600 hover:bg-gray-100 hover:text-black"
-      >
-        Login / Signup
-      </NavLink>
-    ) : (
-  
-      <>
-        <NavLink
-          to="/orders"
-          className="cormorant px-4 py-2 text-gray-600 hover:bg-gray-100 hover:text-black"
-        >
-          Orders
-        </NavLink>
-
-        <button
-          onClick={logout}
-          className="cormorant text-left px-4 py-2 text-gray-600 cursor-pointer hover:bg-gray-100 hover:text-black"
-        >
-          Logout
-        </button>
-      </>
-    )}
-
-  </div>
+            <button
+              onClick={logout}
+              className="cormorant text-left px-4 py-2 text-gray-600 cursor-pointer hover:bg-gray-100 hover:text-black"
+            >
+              Logout
+            </button>
+          </>
+        )}
+      </div>
+    </div>
+  )}
 </div>
 
           </div>
