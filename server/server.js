@@ -27,7 +27,7 @@ app.use("/api/orders" , OrderRouter)
 app.use("/api", Contactrouter);
 app.use("/api/Cart" , CartRouter)
 app.use("/api/user" , userRouter)
-app.get("/auth" , (req,res)=>{
+app.get("/" , (req,res)=>{
     res.status(200).send("Hi i am server")
 })
 
