@@ -15,7 +15,7 @@ const Contact = () => {
   const submitHandler = async (e) => {
     e.preventDefault();
     try {
-      const response = await axios.post(backendUrl + '/api/contact', { Name, email, message });
+      const response = await axios.post(backendUrl + '/api/contact', { Name, email, message } , {withCredentials:true});
       if (response.data.success) {
         toast.success(response.data.message);
         setName('');

@@ -2,14 +2,24 @@ import React, { useContext } from 'react'
 import { ShopContext } from '../Context/ShopContext'
 import Titel from './Titel'
 import { useNavigate } from 'react-router-dom'
-
+import { toast } from 'react-toastify'
 
 const CartTotal = () => {
-  const { currency, delevery_fee, getCartAmount } = useContext(ShopContext)
+  const { currency, delevery_fee, getCartAmount,getCartCount } = useContext(ShopContext)
   const navigate = useNavigate()
 
+
+  
   const subtotal = getCartAmount()
   const total = subtotal + delevery_fee
+
+  const handelcheck = ()=>{
+        if(getCartCount() < 1){
+          toast.error("Cart is empty!")
+        }else{
+          navigate('/Place-order')
+        }
+  }
 
   return (
     <div className="w-full mt-6 flex justify-center md:justify-end px-2 md:px-4 lg:px-0">
@@ -39,7 +49,7 @@ const CartTotal = () => {
         </div>
 
         {/* Checkout Button */}
-        <button onClick={()=>navigate('/Place-order')} className="mt-4 w-full bg-black cormorant cursor-pointer text-white py-3 rounded-lg font-semibold hover:bg-gray-900 transition">
+        <button onClick={()=>handelcheck()} className="mt-4 w-full bg-black cormorant cursor-pointer text-white py-3 rounded-lg font-semibold hover:bg-gray-900 transition">
           Proceed To Checkout
         </button>
 

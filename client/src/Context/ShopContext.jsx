@@ -72,13 +72,22 @@ axios.defaults.withCredentials = true;
         toast.error(error.message);
     }
   }
+ 
 
-  useEffect(() => {
-    // Skip auth check for signup/login
-    if (["/signup"].includes(location.pathname.toLowerCase())) return;
+useEffect(() => {
+  const pathlocation = location.pathname.toLowerCase();
 
-    getAuthState();
-  }, [location.pathname]);
+  // ignore auth pages
+  if (
+    pathlocation === "/signup" ||
+    pathlocation.startsWith("/reset-password")
+  ) {
+    return;
+  }
+
+  getAuthState();
+}, [location.pathname]);
+
 
   // Logout
   const logout = async () => {
@@ -134,6 +143,7 @@ setCartItems(cartData);
     }
     return count;
   };
+
 
   const updateQuantity = async (itemId, size, quantity) => {
    
@@ -196,11 +206,7 @@ setCartItems(cartData);
   }
 };
 
-useEffect(() => {
-  
-    getUserCartData();
-  
-}, []);
+
 
   return (
     <ShopContext.Provider
