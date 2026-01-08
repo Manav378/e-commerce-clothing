@@ -6,25 +6,25 @@ const AdminLogin = ({ backendUrl, settoken }) => {
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
 
- 
   const handleLogin = async (e) => {
     e.preventDefault()
 
     try {
       const res = await axios.post(
-        `${backendUrl}/api/auth/admin`, 
+        `${backendUrl}/api/auth/admin`,
         { email, password },
         { withCredentials: true }
       )
 
       if (res.data.success) {
-        localStorage.setItem("token", res.data.message)
-        settoken(res.data.message)
+        localStorage.setItem("token", res.data.token) 
+        settoken(res.data.token)
+        toast.success("Login Successful")
       } else {
-        toast.error(res.data.message)
+        toast.error(res.data.message || "Login failed")
       }
     } catch (error) {
-      toast.error(error.message)
+      toast.error(error.response?.data?.message || error.message)
     }
   }
 
@@ -43,7 +43,7 @@ const AdminLogin = ({ backendUrl, settoken }) => {
         <h2 className="text-2xl sm:text-3xl font-bold mb-6 text-gray-800 text-center font-display">
           Admin Panel
         </h2>
-     
+
         <div className="mb-4">
           <label className="block text-sm font-medium text-gray-700 mb-1 font-display">
             Email Address
@@ -65,7 +65,6 @@ const AdminLogin = ({ backendUrl, settoken }) => {
           />
         </div>
 
-       
         <div className="mb-6">
           <label className="block text-sm font-medium text-gray-700 mb-1 font-display">
             Password
@@ -87,7 +86,6 @@ const AdminLogin = ({ backendUrl, settoken }) => {
           />
         </div>
 
-   
         <button
           type="submit"
           className="

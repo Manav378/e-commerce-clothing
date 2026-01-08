@@ -14,6 +14,7 @@ const _List = ({ backendUrl, token }) => {
         backendUrl + '/api/product/list',
         { headers: { token } }
       )
+   
 
       if (response.data.success) {
         setList(response.data.products)

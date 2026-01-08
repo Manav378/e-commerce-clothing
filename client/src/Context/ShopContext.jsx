@@ -21,7 +21,7 @@ axios.defaults.withCredentials = true;
   // Auth check
   const getAuthState = async () => {
     try {
-      const { data } = await axios.get(`${backendUrl}/api/auth/isAunthenticated`, {
+      const { data } = await axios.get(`${backendUrl}/api/auth/isAuthenticated`, {
         withCredentials: true,
       });
 

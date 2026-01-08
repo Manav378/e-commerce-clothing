@@ -1,6 +1,7 @@
 import {v2 as cloudinary} from 'cloudinary'
-import productModel from '../models/product.model.js';
 
+productModel
+import productModel from '../models/product.model.js'
 
 // function for add product ✅
 export const addproduct = async (req, res) => {
@@ -41,7 +42,7 @@ export const addproduct = async (req, res) => {
       date:Date.now()
   };
 
-  console.log(ProdutData);
+  // console.log(ProdutData);
 
   const product = new productModel(ProdutData);
   await product.save();
@@ -55,13 +56,14 @@ export const addproduct = async (req, res) => {
 // function for list product ✅
 export const ListProducts = async (req, res) => {
     try {
-        const products = await productModel.find({})
-        res.json({success:true , products})
+        const products = await productModel.find({}); // ye MongoDB se data laega
+        console.log(products); // debug ke liye console me check karo
+        res.json({ success: true, products }); // frontend me ye jaayega
     } catch (error) {
-          res.json({ success: false, message: error.message });
+        res.json({ success: false, message: error.message });
     }
-
 };
+
 
 // function for Remove product ✅
 export const removeProduct = async (req, res) => {
