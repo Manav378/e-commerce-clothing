@@ -23,7 +23,7 @@ const Bestseller = () => {
 
 
 
-      {/*Rendering bestseller produts */}
+   
         <div className='grid sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5 py-4 gap-4 gap-y-3 '>
 
         {

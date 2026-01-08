@@ -23,17 +23,17 @@ const Navbar = ({ open, setopen }) => {
 
   return (
     <>
-      {/* ===== NAVBAR ===== */}
+      
       <div className="sticky top-0 z-50 w-full h-[16vh] bg-white flex items-center justify-between px-6 md:px-12 shadow-sm">
 
-        {/* Logo */}
+    
         <div className="sm:w-[14vw] w-[30vw]">
           <NavLink to="/">
             <img src={assets.logo} className="w-full" alt="TRENDCASA Logo" />
           </NavLink>
         </div>
 
-        {/* Desktop Links */}
+        
         <ul className="hidden sm:flex gap-6">
           {["/", "/Collection", "/About", "/Contact"].map((path, i) => (
             <NavLink
@@ -50,9 +50,9 @@ const Navbar = ({ open, setopen }) => {
           ))}
         </ul>
 
-        {/* Icons */}
+     
         <div className="flex items-center gap-5 cursor-pointer">
-          {/* Search */}
+        
           <lord-icon
             src="https://cdn.lordicon.com/wjyqkiew.json"
             trigger="hover"
@@ -61,23 +61,25 @@ const Navbar = ({ open, setopen }) => {
             onClick={() => setshowsearch(true)}
           />
 
-          {/* Profile Dropdown */}
-          <div className="relative group">
-            <lord-icon
-             
-              src="https://cdn.lordicon.com/kdduutaw.json"
-              trigger="hover"
-              stroke="bold"
-              state="hover-rotation"
-              colors="primary:#000000,secondary:#000000"
-              style={{ width: "28px", height: "28px", cursor: "pointer" }}
-            />
+        
+   <div
+  className="relative  cursor-pointer rounded-full"
+  onClick={() => navigate('/collection')}
+>
+  <lord-icon
+    src="https://cdn.lordicon.com/kdduutaw.json"
+    trigger="hover"
+    stroke="bold"
+    state="hover-rotation"
+    colors="primary:#000000,secondary:#000000"
+    style={{ width: "28px", height: "28px" }}
+  />
 
            <div className="absolute right-0 top-full hidden group-hover:flex z-50">
   <div className="flex flex-col bg-white shadow-lg rounded-xl w-44 overflow-hidden">
 
     {!isLoggedin ? (
-      /* ===== NOT LOGGED IN ===== */
+   
       <NavLink
         to="/Signup"
         className="cormorant px-4 py-2 text-gray-600 hover:bg-gray-100 hover:text-black"
@@ -85,7 +87,7 @@ const Navbar = ({ open, setopen }) => {
         Login / Signup
       </NavLink>
     ) : (
-      /* ===== LOGGED IN ===== */
+  
       <>
         <NavLink
           to="/orders"
@@ -108,7 +110,7 @@ const Navbar = ({ open, setopen }) => {
 
           </div>
 
-          {/* Cart */}
+      
           <Link to="/cart" className="relative">
             <lord-icon
               src="https://cdn.lordicon.com/uisoczqi.json"
@@ -121,7 +123,7 @@ const Navbar = ({ open, setopen }) => {
             </span>
           </Link>
 
-          {/* Mobile Menu Icon */}
+      
           {!open && (
             <img
               src={assets.menu}
@@ -133,7 +135,7 @@ const Navbar = ({ open, setopen }) => {
         </div>
       </div>
 
-      {/* ===== MOBILE SIDEBAR ===== */}
+   
       <div
         className={`fixed top-0 right-0 h-full w-full bg-white z-50 transition-transform duration-500 ease-in-out ${open ? "translate-x-0" : "translate-x-full"
           }`}
