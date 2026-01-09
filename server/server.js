@@ -15,14 +15,15 @@ import Contactrouter from './Routes/contact.routes.js';
 
 dotenv.config();
 
-const app = express(); // ✅ app sabse pehle banao
+const app = express(); 
 
-// ✅ CORS HAMESHA ROUTES SE PEHLE
+
 app.use(cors({
   origin: [
     'http://localhost:5178',
     'http://localhost:5179',
-    'https://trendcasa-fronted.vercel.app' // ✅ PROD FRONTEND
+    'https://trendcasa-fronted.vercel.app' ,
+    'https://fronted-admin.vercel.app'
   ],
   credentials: true
 }));
