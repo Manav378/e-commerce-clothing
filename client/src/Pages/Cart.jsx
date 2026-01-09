@@ -8,7 +8,7 @@ const Cart = () => {
   const [cartData, setcartData] = useState([])
 
   useEffect(() => {
-    if(products.length > 0){
+    if (products.length > 0) {
       const tempData = []
       for (const items in CartItems) {
         for (const item in CartItems[items]) {
@@ -23,17 +23,17 @@ const Cart = () => {
       }
       setcartData(tempData)
     }
-  }, [CartItems , products])
+  }, [CartItems, products])
 
   return (
     <div className="w-full min-h-screen px-4 md:px-8 py-8">
 
-      
+
       <div className="mb-6">
         <Titel text1="CART" text2="ITEMS" />
       </div>
 
-     
+
       <div className="flex flex-col gap-4">
         {cartData.map((item, index) => {
           const productdata = products.find(
@@ -45,7 +45,7 @@ const Cart = () => {
               key={index}
               className="border border-gray-300 rounded-xl p-4 flex flex-col sm:flex-row items-start sm:items-center gap-4 bg-white shadow-sm hover:shadow-md transition"
             >
-            
+
               <div className="flex items-center gap-4 flex-1">
                 <img
                   src={productdata.image?.[0]}
@@ -63,24 +63,28 @@ const Cart = () => {
                 </div>
               </div>
 
-          
+
               <input
                 type="number"
-                min={1}
-                value={item.quantity}
-                onChange={(e) =>
-                  e.target.value === '' || e.target.value === '0'
-                    ? null
-                    : updateQuantity(
-                        item._id,
-                        item.size,
-                        Number(e.target.value)
-                      )
-                }
+                value={item.quantity === 0 ? '' : item.quantity} 
+                onChange={(e) => {
+                  const val = e.target.value;
+
+              
+                  if (val === '') {
+                    updateQuantity(item._id, item.size, 0); 
+                    return;
+                  }
+
+                  const num = Number(val);
+                  if (num >= 1) {
+                    updateQuantity(item._id, item.size, num);
+                  }
+                }}
                 className="w-20 h-10 text-center font-bold border rounded"
               />
 
-             
+
               <lord-icon
                 src="https://cdn.lordicon.com/jzinekkv.json"
                 trigger="hover"
@@ -94,7 +98,7 @@ const Cart = () => {
         })}
       </div>
 
-    
+
       <div className="mt-8">
         <CartTotal />
       </div>
