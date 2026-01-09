@@ -6,14 +6,13 @@ import transporter from "../config/smtp.js";
 import { verifyEmailTemplate } from "../utils/verifyEmailTemplate.js";
 import { otpEmailTemplate } from "../utils/OtpTemplate.js";
 
-const isProd = process.env.NODE_ENV === "production";
-
 const cookieOptions = {
   httpOnly: true,
-  secure: isProd,
-  sameSite: isProd ? "none" : "strict",
-  maxAge: 7 * 24 * 60 * 60 * 1000, // 7 days
+  secure: true,       
+  sameSite: "none",    
+  maxAge: 7 * 24 * 60 * 60 * 1000,
 };
+
 
 // ==================== REGISTER ====================
 export const register = async (req, res) => {

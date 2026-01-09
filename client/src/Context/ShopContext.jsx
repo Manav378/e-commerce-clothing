@@ -42,7 +42,7 @@ axios.defaults.withCredentials = true;
 
   const getProductsData = async()=>{
     try {
-      const response = await axios.get(backendUrl+"/api/product/list" ,{withCredentials:true})
+      const response = await axios.get(backendUrl+"/api/product/list" )
       if(response.data.success){
         setproducts(response.data.products)
       }else{
@@ -61,7 +61,7 @@ axios.defaults.withCredentials = true;
 
   const getUserData = async()=>{
     try {
-        const {data} = await axios.get(backendUrl+`/api/user/data`,{withCredentials:true})
+        const {data} = await axios.get(backendUrl+`/api/user/data`)
         if(data.success){
             setUserData(data.UserData)
         }else{
@@ -74,24 +74,22 @@ axios.defaults.withCredentials = true;
  
 
 useEffect(() => {
-  const pathlocation = location.pathname.toLowerCase();
+  const authFreeRoutes = ["/signup", "/login", "/reset-password"];
 
-  // ignore auth pages
-  if (
-    pathlocation === "/signup" ||
-    pathlocation.startsWith("/reset-password")
-  ) {
+  if (authFreeRoutes.includes(location.pathname.toLowerCase())) {
     return;
   }
 
   getAuthState();
-}, [location.pathname]);
+}, []);
+
+
 
 
   // Logout
   const logout = async () => {
     try {
-      await axios.get(backendUrl+`/api/auth/logout`,{withCredentials:true});
+      await axios.get(backendUrl+`/api/auth/logout`);
       setisLoggedin(false);
       setUserData(null);
       toast.success("Logged out successfully");
@@ -124,7 +122,7 @@ setCartItems(cartData);
 
 
     try {
-      await axios.post(backendUrl+"/api/Cart/add",{itemId , size},{withCredentials:true});
+      await axios.post(backendUrl+"/api/Cart/add",{itemId , size});
     } catch (error) {
       console.log(error);
       toast.error(error.message);
