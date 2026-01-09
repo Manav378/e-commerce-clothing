@@ -34,7 +34,7 @@
   max-width: 90vw !important;  /* mobile friendly */
 }
 .Toastify__toast-container {
-  top: 60px !important; /* adjust this value as needed */
+  top: 40px !important; /* adjust this value as needed */
   right: 1rem !important; /* keep right positioning */
   left: auto !important;
 }
