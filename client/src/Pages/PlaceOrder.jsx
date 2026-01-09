@@ -2,9 +2,7 @@ import React, { useContext, useState } from "react";
 import { assets } from "../assets/assets.js";
 import { useNavigate } from "react-router-dom";
 import { ShopContext } from "../Context/ShopContext.jsx";
-// import axios from "axios";
-
-import api from "../api.js";
+import axios from "axios";
 import { toast } from "react-toastify";
 
 const PlaceOrder = () => {
@@ -63,7 +61,7 @@ const PlaceOrder = () => {
 
       switch (method) {
         case "cod":
-          const response = await api.post( "/api/orders/place", orderData);
+          const response = await axios.post( backendUrl+"/api/orders/place", orderData,{withCredentials:true});
           if (response.data.success) {
             setCartItems({});
             navigate("/orders");
@@ -73,7 +71,7 @@ const PlaceOrder = () => {
           break;
 
         case "stripe":
-          const responseStripe = await api.post( "/api/orders/stripe", orderData);
+          const responseStripe = await axios.post(backendUrl+ "/api/orders/stripe", orderData,{withCredentials:true});
 
           if (responseStripe.data.success) {
             const { session_url } = responseStripe.data;

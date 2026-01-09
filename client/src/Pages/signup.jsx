@@ -1,11 +1,11 @@
-// AuthPage.jsx
+
 import React, { useContext, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { assets } from "../assets/assets";
 import { ShopContext } from "../Context/ShopContext";
 import axios from "axios";
-// import { toast } from "react-toastify";
-import api from "../api";
+import { toast } from "react-toastify";
+
 
 export default function AuthPage() {
   const [isSignUp, setIsSignUp] = useState(true);
@@ -23,31 +23,31 @@ export default function AuthPage() {
       axios.defaults.withCredentials = true;
 
       if (isSignUp) {
-        const { data } = await api.post(
+        const { data } = await axios.post( backendUrl +
           `/api/auth/register`,
-          { name, email, password }
+          { name, email, password },{withCredentials:true}
           
         );
 
         if (data.success) {
-          setShowVerifyModal(true); // registration ke baad modal show karo
-          toast.success(data.message); // backend ka message dikhao
+          setShowVerifyModal(true); 
+          toast.success(data.message); 
         } else {
-          toast.error(data.message); // backend error message dikhao
+          toast.error(data.message); 
         }
       } else {
-        const { data } = await api.post(
+        const { data } = await axios.post(backendUrl+
           `/api/auth/login`,
-          { email, password },
+          { email, password },{withCredentials:true}
           
         );
 
         if (data.success) {
           setisLoggedin(true);
-          toast.success(data.message); // backend message
+          toast.success(data.message); 
           navigate("/");
         } else {
-          toast.error(data.message); // backend error
+          toast.error(data.message); 
         }
       }
     } catch (error) {
@@ -57,7 +57,7 @@ export default function AuthPage() {
 
   const verifyEmail = async () => {
     try {
-      const { data } = await api.post(
+      const { data } = await axios.post(backendUrl+
         `/api/auth/send-verify`,
         {},
         { withCredentials: true }

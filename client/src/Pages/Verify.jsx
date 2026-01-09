@@ -1,11 +1,10 @@
 import React from 'react'
 import { useContext } from 'react'
 import { ShopContext } from '../Context/ShopContext'
-// import axios from 'axios'
-import api from '../api'
 import { useEffect } from 'react'
 import { useSearchParams } from 'react-router-dom'
 import { toast } from 'react-toastify'
+import axios from 'axios'
 const Verify = () => {
 
 
@@ -17,7 +16,7 @@ const Verify = () => {
     const VerifyPayement = async()=>{
             try {
                 
-            const response = await api.post('/api/orders/verifyStripe' , {success , orderId} )
+            const response = await axios.post(backendUrl+'/api/orders/verifyStripe' , {success , orderId},{withCredentials:true} )
              if(response.data.success){
                 setCartItems({});
                 navigate('/Orders')
