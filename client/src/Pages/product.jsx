@@ -8,7 +8,7 @@ import { toast } from "react-toastify";
 
 const Product = () => {
   const { ProductId } = useParams();
-  const { products, currency, addtocart, CartItems } = useContext(ShopContext);
+  const { products, currency, addtocart } = useContext(ShopContext);
 
   const [productData, setProductData] = useState(null);
   const [image, setImage] = useState("");
@@ -32,10 +32,10 @@ const Product = () => {
 
       <div className="flex flex-col sm:flex-row gap-10 sm:gap-12">
 
-        {/* LEFT - Images */}
+       
         <div className="flex-1 flex flex-col-reverse sm:flex-row gap-4">
 
-          {/* Thumbnails */}
+        
           <div className="flex sm:flex-col overflow-x-auto sm:overflow-y-scroll justify-between sm:w-[18%] gap-2">
             {productData.image?.map((item, index) => (
               <img
@@ -48,14 +48,14 @@ const Product = () => {
             ))}
           </div>
 
-          {/* Main Image */}
+       
           <div className="w-full sm:w-[80%] rounded-2xl overflow-hidden shadow-xl">
             <img src={image} className="w-full object-cover rounded-2xl" alt="" />
           </div>
 
         </div>
 
-        {/* RIGHT - Product Info */}
+      
         <div className="flex-1 flex flex-col gap-4">
           <h1 className="text-3xl sm:text-4xl font-semibold text-gray-900 cormorant">{productData.name}</h1>
 
@@ -73,7 +73,7 @@ const Product = () => {
 
           <p className="mt-2 text-gray-600 text-base leading-7 cormorant">{productData.description}</p>
 
-          {/* Size Selection */}
+       
           <p className="mt-4 text-lg font-semibold cormorant">Select Size</p>
           <div className="flex flex-wrap gap-3 mt-2">
             {productData.size?.map((item, index) => (
@@ -89,11 +89,11 @@ const Product = () => {
             ))}
           </div>
 
-          {/* Add to Cart */}
+    
           <button
             onClick={() => {
               if (!size) {
-                toast.error("Please select a size before adding to cart!");
+                toast.info("Please select a size before adding to cart!");
                 return;
               }
               addtocart(productData._id, size);
@@ -104,7 +104,7 @@ const Product = () => {
             ADD TO CART
           </button>
 
-          {/* Quick Info */}
+        
           <div className="mt-6 space-y-2 text-gray-700 cormorant">
             <p>✔ 100% Original Product</p>
             <p>✔ Cash on Delivery Available</p>
@@ -114,7 +114,7 @@ const Product = () => {
 
       </div>
 
-      {/* Tabs Section */}
+    
       <div className="mt-20 mb-20 border-t pt-10">
         <div className="flex gap-8 items-center border-b pb-3 text-sm font-semibold cormorant">
           <button className="text-black border-b-2 border-black pb-2">Description</button>
@@ -137,7 +137,7 @@ const Product = () => {
         </div>
       </div>
 
-      {/* Related Products */}
+    
       <Titel text1={'RELATED'} text2={'PRODUCTS'} />
       <RelatedProducts
         category={productData.category}
