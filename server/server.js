@@ -28,9 +28,14 @@ app.use(cookieParser());
 
 
 app.use(cors({
-  origin: ['http://localhost:5179', 'http://localhost:5178'],
-  credentials: true
+  origin: [
+    'http://localhost:5178', 
+    'http://localhost:5179', 
+    'https://trendcasa-fronted-git-main-manav-patel1.vercel.app'
+  ],
+  credentials: true 
 }));
+
 
 
 app.use('/api/auth', router);
