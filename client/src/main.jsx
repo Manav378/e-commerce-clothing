@@ -20,8 +20,8 @@ createRoot(document.getElementById('root')).render(
   closeOnClick
   pauseOnHover
   draggable
-  toastClassName="custom-toast"      // custom class
-  bodyClassName="custom-toast-body"  // body class
+  toastClassName="custom-toast"
+  bodyClassName="custom-toast-body"
 />
 
 

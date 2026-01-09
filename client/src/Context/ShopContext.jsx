@@ -196,7 +196,7 @@ setCartItems(cartData);
     if (data.success) {
       setCartItems(data.message);
     } else {
-      toast.error("Failed to fetch cart data");
+      // toast.error("Failed to fetch cart data");
     }
   } catch (error) {
     console.log(error);
