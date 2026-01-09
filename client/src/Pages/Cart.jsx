@@ -28,12 +28,12 @@ const Cart = () => {
   return (
     <div className="w-full min-h-screen px-4 md:px-8 py-8">
 
-      {/* TITLE */}
+      
       <div className="mb-6">
         <Titel text1="CART" text2="ITEMS" />
       </div>
 
-      {/* CART ITEMS */}
+     
       <div className="flex flex-col gap-4">
         {cartData.map((item, index) => {
           const productdata = products.find(
@@ -45,7 +45,7 @@ const Cart = () => {
               key={index}
               className="border border-gray-300 rounded-xl p-4 flex flex-col sm:flex-row items-start sm:items-center gap-4 bg-white shadow-sm hover:shadow-md transition"
             >
-              {/* PRODUCT */}
+            
               <div className="flex items-center gap-4 flex-1">
                 <img
                   src={productdata.image?.[0]}
@@ -63,7 +63,7 @@ const Cart = () => {
                 </div>
               </div>
 
-              {/* QUANTITY */}
+          
               <input
                 type="number"
                 min={1}
@@ -80,7 +80,7 @@ const Cart = () => {
                 className="w-20 h-10 text-center font-bold border rounded"
               />
 
-              {/* DELETE */}
+             
               <lord-icon
                 src="https://cdn.lordicon.com/jzinekkv.json"
                 trigger="hover"
@@ -94,7 +94,7 @@ const Cart = () => {
         })}
       </div>
 
-      {/* CART TOTAL BELOW ITEMS */}
+    
       <div className="mt-8">
         <CartTotal />
       </div>

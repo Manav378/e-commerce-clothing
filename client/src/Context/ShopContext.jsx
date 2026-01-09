@@ -89,7 +89,7 @@ useEffect(() => {
   // Logout
   const logout = async () => {
     try {
-      await axios.get(backendUrl+`/api/auth/logout`,{withCredentials:true});
+      await axios.get(backendUrl+`/api/auth/logout`);
       setisLoggedin(false);
       setUserData(null);
       toast.success("Logged out successfully");
@@ -125,7 +125,7 @@ setCartItems(cartData);
       await axios.post(backendUrl+"/api/Cart/add",{itemId , size});
     } catch (error) {
       console.log(error);
-      toast.error(error.message);
+      // toast.error(error.message);
     }
     
     
@@ -167,7 +167,7 @@ setCartItems(cartData);
        
       );
     } catch (error) {
-      toast.error("Cart update failed");
+      // toast.error("Cart update failed");
     }
   };
 

@@ -16,7 +16,7 @@ const CartTotal = () => {
   const handelcheck = ()=>{
     if(!isLoggedin) return toast.info("Please login or signup to continue")
         if(getCartCount() < 1){
-          toast.error("Cart is empty!")
+          toast.info("Cart is empty!")
         }else{
           navigate('/Place-order')
         }

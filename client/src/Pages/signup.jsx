@@ -31,6 +31,9 @@ export default function AuthPage() {
 
         if (data.success) {
           setShowVerifyModal(true); 
+          setName("")
+          setemail("")
+          setpassword("")
           toast.success(data.message); 
         } else {
           toast.error(data.message); 
@@ -44,6 +47,8 @@ export default function AuthPage() {
 
         if (data.success) {
           setisLoggedin(true);
+          setemail("")
+          setpassword("")
           toast.success(data.message); 
           navigate("/");
         } else {
@@ -76,12 +81,12 @@ export default function AuthPage() {
       className="min-h-screen flex items-center justify-center bg-cover bg-center px-4"
       style={{ backgroundImage: `url(${assets.authBg})` }}
     >
-      {/* Overlay */}
+     
       <div className="absolute inset-0 bg-black/60"></div>
 
-      {/* Auth Card */}
+      
       <div className="relative w-full max-w-sm sm:max-w-md bg-white/90 backdrop-blur-lg p-6 sm:p-8 rounded-2xl shadow-2xl cormorant">
-        {/* Logo */}
+    
         <div className="flex justify-center mb-4 sm:mb-6">
           <img
             onClick={() => navigate("/")}
@@ -155,7 +160,7 @@ export default function AuthPage() {
         </p>
       </div>
 
-      {/* VERIFY EMAIL MODAL */}
+
       {showVerifyModal && (
         <div className="fixed inset-0 bg-black/50 flex items-center justify-center px-4 z-50">
           <div className="bg-white w-full max-w-sm p-5 rounded-xl shadow-lg cormorant">
