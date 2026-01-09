@@ -11,6 +11,7 @@ import ProductRouter from './Routes/product.route.js';
 import CartRouter from './Routes/Cart.routes.js';
 import OrderRouter from './Routes/Orders.routes.js';
 import Contactrouter from './Routes/contact.routes.js';
+const app = express();
 app.use(cors({
   origin: [
     'http://localhost:5178', 
@@ -19,7 +20,6 @@ app.use(cors({
   credentials: true 
 }));
 dotenv.config();
-const app = express();
 
 conndb();
 connCloudinary();
