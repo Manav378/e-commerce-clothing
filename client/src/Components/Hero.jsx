@@ -1,7 +1,10 @@
 import React from 'react';
 import { assets } from '../assets/assets';
+import { useNavigate } from 'react-router-dom';
 
 const Hero = () => {
+
+  const naviagte = useNavigate();
   return (
     <div className="relative w-full md:h-[600px] bg-gray-50">
 
@@ -32,7 +35,7 @@ const Hero = () => {
           </p>
 
           {/* Shop Now Button */}
-          <button className="mt-4 px-8 py-3 bg-black text-white cormorant font-semibold rounded-lg shadow-lg hover:bg-gray-800 transition-all">
+          <button onClick={()=>naviagte("/collection")} className="mt-4 cursor-pointer px-8 py-3 bg-black text-white cormorant font-semibold rounded-lg shadow-lg hover:bg-gray-800 transition-all">
             Shop Now
           </button>
 

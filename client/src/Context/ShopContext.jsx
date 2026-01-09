@@ -89,7 +89,7 @@ useEffect(() => {
   // Logout
   const logout = async () => {
     try {
-      await axios.get(backendUrl+`/api/auth/logout`);
+      await axios.get(backendUrl+`/api/auth/logout`,{withCredentials:true});
       setisLoggedin(false);
       setUserData(null);
       toast.success("Logged out successfully");
@@ -206,12 +206,12 @@ setCartItems(cartData);
 
 useEffect(() => {
   if (isLoggedin) {
+   
     getUserCartData();
   } else {
     setCartItems({});
   }
 }, [isLoggedin]);
-
 
   return (
     <ShopContext.Provider

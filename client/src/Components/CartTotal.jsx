@@ -5,7 +5,7 @@ import { useNavigate } from 'react-router-dom'
 import { toast } from 'react-toastify'
 
 const CartTotal = () => {
-  const { currency, delevery_fee, getCartAmount,getCartCount } = useContext(ShopContext)
+  const { currency, delevery_fee, getCartAmount,getCartCount,isLoggedin } = useContext(ShopContext)
   const navigate = useNavigate()
 
 
@@ -14,6 +14,7 @@ const CartTotal = () => {
   const total = subtotal + delevery_fee
 
   const handelcheck = ()=>{
+    if(!isLoggedin) return toast.info("Please login or signup to continue")
         if(getCartCount() < 1){
           toast.error("Cart is empty!")
         }else{
@@ -25,16 +26,16 @@ const CartTotal = () => {
     <div className="w-full mt-6 flex justify-center md:justify-end px-2 md:px-4 lg:px-0">
       <div className="w-full sm:w-[80%] md:w-[35%] lg:w-[28%] bg-white rounded-2xl p-6 shadow-lg flex flex-col gap-4">
         
-        {/* Title */}
+      
         <div className='cormorant font-extrabold text-2xl m-auto'>CART TOATL</div>
 
-        {/* Subtotal */}
+      
         <div className="flex justify-between items-center text-sm text-gray-600">
           <span className='cormorant'>Subtotal</span>
           <span className="font-medium cormorant">{currency}{subtotal}</span>
         </div>
 
-        {/* Shipping */}
+        
         <div className="flex justify-between items-center text-sm text-gray-600">
           <span className='cormorant'>Shipping Fee</span>
           <span className="font-medium cormorant">{currency}{delevery_fee}</span>
@@ -42,13 +43,13 @@ const CartTotal = () => {
 
         <hr className="border-gray-300 my-2" />
 
-        {/* Total */}
+       
         <div className="flex justify-between items-center text-lg font-bold">
           <span className='cormorant'>Total</span>
           <span className='cormorant'>{currency}{total}</span>
         </div>
 
-        {/* Checkout Button */}
+     
         <button onClick={()=>handelcheck()} className="mt-4 w-full bg-black cormorant cursor-pointer text-white py-3 rounded-lg font-semibold hover:bg-gray-900 transition">
           Proceed To Checkout
         </button>
