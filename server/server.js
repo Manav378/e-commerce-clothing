@@ -11,7 +11,13 @@ import ProductRouter from './Routes/product.route.js';
 import CartRouter from './Routes/Cart.routes.js';
 import OrderRouter from './Routes/Orders.routes.js';
 import Contactrouter from './Routes/contact.routes.js';
-
+app.use(cors({
+  origin: [
+    'http://localhost:5178', 
+    'http://localhost:5179', 
+  ],
+  credentials: true 
+}));
 dotenv.config();
 const app = express();
 
@@ -27,14 +33,7 @@ app.use(cookieParser());
 
 
 
-app.use(cors({
-  origin: [
-    'http://localhost:5178', 
-    'http://localhost:5179', 
-    'https://trendcasa-fronted-git-main-manav-patel1.vercel.app'
-  ],
-  credentials: true 
-}));
+
 
 
 
